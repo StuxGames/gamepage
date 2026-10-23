@@ -12,6 +12,8 @@ import html
 import subprocess
 from pathlib import Path
 
+import discord_embed as de
+
 ROOT = Path(__file__).resolve().parent.parent
 BASE_URL = "https://" + (ROOT / "CNAME").read_text(encoding="utf-8").strip()
 
@@ -71,6 +73,7 @@ def build_html(title: str) -> str:
     desc_start = shell_head.index('<meta name="description" content="') + len('<meta name="description" content="')
     desc_end = shell_head.index('">', desc_start)
     shell_head = shell_head[:desc_start] + "Every page on this Stux.Games site, with a link to the XML sitemap." + shell_head[desc_end:]
+    shell_head = de.inject(shell_head, de.page_tag("Sitemap", "Every page on this Stux.Games site, with a link to the XML sitemap.", "/sitemap/"))
     shell_head = shell_head.replace("        .section-note {", "        .legal-card .url { display: block; margin: 0 0 6px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--accent); overflow-wrap: anywhere; }\n        .section-note {", 1)
     cards = []
     for loc, _src, label, desc, _p, _f in PAGES:

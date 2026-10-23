@@ -23,6 +23,8 @@ the dev banner. `--no-dev-mode` renders exactly as production does. The server n
 - The sitemap (`sitemap.xml`, `sitemap/index.html`, `robots.txt`) is generated: after adding or removing a page, edit `PAGES` in `scripts/build-sitemap.py` and run `python scripts/build-sitemap.py`, then commit the result.
 - `changelog.html` fetches and renders `CHANGELOG.md` at runtime, sorting sections into Added, Changed, Fixed, Removed, Security, Deprecated. Don't hand-copy changelog content into it.
 - General contact uses `hello@stux.games`; legal contact uses `legal@stux.games`.
+- Each page except 404 carries a Discord link preview (`discord:component-embed`) built from its `<title>` and meta description: after changing either, run `python scripts/build-embeds.py`. The Stux.Games colour, icon and home-page text live in `scripts/discord_embed.py`. Keep the 404 page free of it, and keep each embed under 3,000 bytes.
+- Favicons are `favicon.ico`, `apple-touch-icon.png`, `site.webmanifest` and `assets/img/icon-*.png`, made from the Stux.Games icon; every `<head>` carries the same four icon tags (see `tests/site.sh`).
 
 ## Versioning
 
@@ -30,7 +32,7 @@ This project uses [Date Versioning](https://datevers.ing). To release:
 
 1. Add a `## vYY.MM.DD` entry at the top of `CHANGELOG.md`, with its sections in this order: Added, Changed, Fixed, Removed, Security, Deprecated.
 2. Set `VERSION.md` to the same bare version (no `v`): today's **UTC** date as `YY.MM.DD`, or `YY.MM.DD-1`, `-2`… for later releases the same UTC day. Never a future date. Use UTC, not local time: just after midnight in the UK it is still the previous day in UTC.
-3. Run `bash tests/version.sh`.
+3. Run `bash tests/version.sh` and `bash tests/site.sh`.
 4. Run `./commit.sh` (or `commit.bat` on Windows). It checks the version, commits and tags `vYY.MM.DD`, and never pushes.
 
 ## Before committing
