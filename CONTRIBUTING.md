@@ -26,6 +26,12 @@ the dev banner. `--no-dev-mode` renders exactly as production does. The server n
 - Each page except 404 carries a Discord link preview (`discord:component-embed`) built from its `<title>` and meta description: after changing either, run `python scripts/build-embeds.py`. The Stux.Games colour, icon and home-page text live in `scripts/discord_embed.py`. Keep the 404 page free of it, and keep each embed under 3,000 bytes.
 - Favicons are `favicon.ico`, `apple-touch-icon.png`, `site.webmanifest` and `assets/img/icon-*.png`, made from the Stux.Games icon; every `<head>` carries the same four icon tags (see `tests/site.sh`).
 
+## Branches
+
+- Work on `test`, or on a feature branch off it. Never push to `main`
+- Changes reach `main` only through a pull request from `test` into `main`, which needs CI to pass and is reviewed and merged by Leo
+- Merging into `main` deploys gamepage.stux.games to GitHub Pages; release commits and tags are made on `test` (`git push origin test --tags`) and go live when the pull request is merged
+
 ## Versioning
 
 This project uses [Date Versioning](https://datevers.ing). To release:
